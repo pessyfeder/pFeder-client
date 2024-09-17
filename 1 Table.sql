@@ -1,0 +1,21 @@
+create table Clients (
+    ClientsId int identity primary key,
+    FirstName varchar(50) not null constraint ck_Clients_First_Name_cannot_be_blank check(FirstName > ''),
+    LastName varchar(500) not null constraint ck_Clients_Last_Name_cannot_be_blank check(LastName > ''),
+    Gender char(1) not null check (gender in ('m', 'f')),
+    DateOfBirth date not null,
+    DateAdmitted date not null,
+    DateDischarged date null,
+    BehavioralPerformanceAdmittance int not null constraint ck_Clients_BehavioralPerformanceAdmittance_cannot_be_4 check (BehavioralPerformanceAdmittance between 1 and 3),
+    BehavioralPerformanceDischarge int not null constraint ck_Clients_BehavioralPerformanceDischarge_cannot_be_2_or_3 check (BehavioralPerformanceDischarge in(1,4)),
+    AccompanyingDisorderDesc varchar(255) null constraint ck_Clients_AccompanyingDisorderDesc_cannot_be_blank check(AccompanyingDisorderDesc > ''),
+    EmergencyContact1 varchar(100) not null constraint ck_Clients_EmergencyContact1_cannot_be_blank check(EmergencyContact1 > ''),
+    Contact1Relationship varchar(50) not null constraint ck_Clients_Contact1Relationship_cannot_be_blank check(Contact1Relationship > ''),
+    Contact1Phone varchar(12) not null constraint ck_Clients_Contact1Phone_needs_at_least_9_num check(Contact1Phone like '[1-9][1-9][1-9][-][1-9][1-9][1-9][-][1-9][1-9][1-9]'),
+    EmergencyContact2 varchar(100) not null constraint ck_Clients_EmergencyContact2_cannot_be_blank check(EmergencyContact2 > ''),
+    Contact2Relationship varchar(50) not null constraint ck_Clients_Contact2Relationship_cannot_be_blank check(Contact2Relationship > ''),
+    Contact2Phone varchar(12) not null constraint ck_Clients_Contact2Phone_needs_at_least_9_num check(Contact2Phone like '[1-9][1-9][1-9][-][1-9][1-9][1-9][-][1-9][1-9][1-9]'),
+    Para varchar(100) not null constraint ck_Clients_Para_cannot_be_blank check(Para > ''),
+    --Add constraint for Para when patient not discharged
+    BCBA varchar(100) not null constraint ck_Clients_BCBA_cannot_be_blank check(BCBA > ''),
+);
